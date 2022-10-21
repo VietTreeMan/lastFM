@@ -1,0 +1,12 @@
+OUTLINE OF LAST.FM WRAPPED PROJECT
+
+The objective of this class to use a third party last.fm API to create a spotify wrapped using user's last.fm account
+
+Wrapped Class: Contains majority of methods
+    Set private variables: as of now, user name (string)
+    Use time period as a variable as well
+    GetTopTracks:
+    GetTopArtists:
+    TotalPlayTime:
+
+    maybe create a recommendation section: using last.fm similar method and whatnot

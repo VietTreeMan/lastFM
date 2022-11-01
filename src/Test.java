@@ -36,6 +36,7 @@ public class Test {
             Artists = User.getTopArtists(user, Period.THREE_MONTHS, key);
             tracks = User.getTopTracks(user, Period.THREE_MONTHS, key);
             albums = User.getTopAlbums(user, Period.THREE_MONTHS, key);
+            period = "Last 3 months";
         } else if(period.equals("D")) {
             Artists = User.getTopArtists(user, Period.SIX_MONTHS, key);
             tracks = User.getTopTracks(user, Period.SIX_MONTHS, key);
@@ -69,8 +70,6 @@ public class Test {
         s.nextLine();
         //System.out.printf("Charts for %s for the week from %s to %s:%n", user, from, to);
 
-        Collection<Artist> weeklyArtists = chart.getEntries();
-
 
 
         System.out.println("Enter for your Top 5 songs of " + period);
@@ -84,12 +83,40 @@ public class Test {
         }
 
         String[] topArtistNames = new String[50];
-        int p=0;
+
+        //string array that replaces each original artist in topArtistNames with the first recommended artist for each artist.
+        String[] topRecArtists = new String[50];
+
+
+
+        //Here we are converting the top artists of the user from a collection into an Arraylist, so that we can iterate specific intervals of top artists
+        //We are doing the same for recommendedArtists, which is an arraylist of the similar artists to a specific artist in top artists arraylist
+        ArrayList<Artist> userArtists = new ArrayList<>();
+        ArrayList<Artist> recommendedArtists;
         for (Artist artist : Artists) {
             //System.out.println(track.getName());
-            topArtistNames[p] = artist.getName();
-            p++;
+            userArtists.add(artist);
         }
+
+        //getSimilar(String artist, String apiKey)
+
+        Collection<Artist> recArtistCollection = new ArrayList<>();
+        for (int i=0; i<5; i++){
+            Artist temp = userArtists.get(i);
+            recArtistCollection = temp.getSimilar(temp.getName(), 2,"5a78b2b840811b4ab8d26309e2b68ee6");
+            //System.out.println(recArtistCollection);
+//            for (Artist artists: recArtistCollection){
+//                recommendedArtists.add(artists);
+//            }
+
+            recommendedArtists = new ArrayList<>(recArtistCollection);
+            topRecArtists[i] = recommendedArtists.get(0).getName();
+            //FIX THIS LINE NEXT CLASSSSSSSSSSSSSSSSSSSSSSSSSS
+            recommendedArtists.clear();
+        }
+
+
+
 
         String[] topAlbumNames = new String[50];
         int u = 0;
@@ -105,8 +132,11 @@ public class Test {
             l++;
         }
 
-
-
+        int p=0;
+        for (Artist artist : Artists) {
+            topArtistNames[p] = artist.getName();
+            p++;
+        }
 
         for (int i=0; i<5; i++){
             System.out.println(topTrackNames[i] + " was played " + topTrackPlaycount[i] + " times");
@@ -130,6 +160,15 @@ public class Test {
         s.nextLine();
         for (int i=0; i<5; i++){
             System.out.println(topAlbumNames[i]);
+        }
+
+        System.out.println();
+        System.out.println();
+        System.out.println("Reccomended artist and songs");
+        System.out.println("------------------------------------------------------------");
+
+        for(int i=0; i<5; i++){
+            System.out.println(topRecArtists[i]);
         }
 
     }

@@ -57,12 +57,6 @@ public class Test {
         }
 
 
-
-
-        //Period p = new Period
-
-
-
         DateFormat format = DateFormat.getDateInstance();
         String from = format.format(chart.getFrom());
         String to = format.format(chart.getTo());
@@ -111,7 +105,7 @@ public class Test {
 
             recommendedArtists = new ArrayList<>(recArtistCollection);
             topRecArtists[i] = recommendedArtists.get(0).getName();
-            //FIX THIS LINE NEXT CLASSSSSSSSSSSSSSSSSSSSSSSSSS
+
             recommendedArtists.clear();
         }
 

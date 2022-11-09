@@ -20,6 +20,7 @@ public class Test {
         Collection<Artist> Artists = User.getTopArtists(user, Period.OVERALL, key);
         Collection<Track> tracks = User.getTopTracks(user, Period.OVERALL, key);
         Collection<Album> albums = User.getTopAlbums(user, Period.OVERALL, key);
+        PaginatedResult<Track> Love = User.getLovedTracks(user, key);
 
 
         if(period.equals("A")){
@@ -76,6 +77,13 @@ public class Test {
             System.out.println(track.getName());
         }
 
+        String[] LovedSongs = new String[50];
+        int n=0;
+        for(Track liked : Love){
+            LovedSongs[n] = liked.getName();
+            n++;
+        }
+
         String[] topArtistNames = new String[50];
 
         //string array that replaces each original artist in topArtistNames with the first recommended artist for each artist.
@@ -121,8 +129,10 @@ public class Test {
 
         int l=0;
         int[] topTrackPlaycount = new int[50];
+        int totalPlayCount = 0;
         for (Track Track: tracks){
             topTrackPlaycount[l] = Track.getPlaycount();
+            totalPlayCount += Track.getPlaycount();
             l++;
         }
 

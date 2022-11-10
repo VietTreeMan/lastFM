@@ -20,7 +20,8 @@ public class Test {
         Collection<Artist> Artists = User.getTopArtists(user, Period.OVERALL, key);
         Collection<Track> tracks = User.getTopTracks(user, Period.OVERALL, key);
         Collection<Album> albums = User.getTopAlbums(user, Period.OVERALL, key);
-        PaginatedResult<Track> Love = User.getLovedTracks(user, key);
+        Collection<Artist> CountryA = Geo.getTopArtists("United States", key);
+        Collection<Track> CountryT = Geo.getTopTracks("United States", key);
 
 
         if(period.equals("A")){
@@ -71,18 +72,26 @@ public class Test {
         s.nextLine();
 
 
+        String[] countryArtists = new String[50];
+        int z=0;
+        for (Artist artist: CountryA) {
+            countryArtists[z] = artist.getName();
+            z++;
+        }
+
+        String[] countryTracks = new String[50];
+        int q=0;
+        for (Track track: CountryT) {
+            countryTracks[q] = track.getName();
+            q++;
+        }
+
         String[] topTrackNames = new String[50];
         int k=0;
         for (Track track : tracks) {
             System.out.println(track.getName());
         }
 
-        String[] LovedSongs = new String[50];
-        int n=0;
-        for(Track liked : Love){
-            LovedSongs[n] = liked.getName();
-            n++;
-        }
 
         String[] topArtistNames = new String[50];
 
@@ -172,8 +181,9 @@ public class Test {
         System.out.println("Reccomended artist and songs");
         System.out.println("------------------------------------------------------------");
 
-        for(int i=0; i<5; i++){
-            System.out.println(topRecArtists[i]);
+        s.nextLine();
+        for(int i=0; i<recArtistNum; i++){
+            System.out.println(topRecArtists.get(i).getName());
         }
 
     }

@@ -13,15 +13,37 @@ public class Test {
         System.out.println("What is your Last FM Name?");
         user = s.nextLine();
         Chart<Artist> chart = User.getWeeklyArtistChart(user, 5, key);
+
         System.out.println("What period of time would you like to observe?");
         System.out.println("A: Last week  B: Last month  C: Last 3 months  D: Last 6 months  E: Last year  F: Overall");
         period = s.nextLine();
+
+
+        while (!(period.equals("A")||period.equals("a")||period.equals("B")||period.equals("b")||period.equals("C")||
+                period.equals("c")||period.equals("D")||period.equals("d")||period.equals("E")||period.equals("e")||period.equals("F")||period.equals("f"))){
+            System.out.println("Try again with valid input!");
+            System.out.println("What period of time would you like to observe?");
+            System.out.println("A: Last week  B: Last month  C: Last 3 months  D: Last 6 months  E: Last year  F: Overall");
+            period = s.nextLine();
+        }
+
 
         Collection<Artist> Artists = User.getTopArtists(user, Period.OVERALL, key);
         Collection<Track> tracks = User.getTopTracks(user, Period.OVERALL, key);
         Collection<Album> albums = User.getTopAlbums(user, Period.OVERALL, key);
         Collection<Artist> CountryA = Geo.getTopArtists("United States", key);
         Collection<Track> CountryT = Geo.getTopTracks("United States", key);
+        try{
+            
+           Artists = User.getTopArtists(user, Period.OVERALL, key);
+            tracks = User.getTopTracks(user, Period.OVERALL, key);
+            albums = User.getTopAlbums(user, Period.OVERALL, key);
+            CountryA = Geo.getTopArtists("United States", key);
+            CountryT = Geo.getTopTracks("United States", key);
+        } catch(Exception e){
+            System.out.println("INVALID NAME");
+        }
+
 
 
         if(period.equals("A")){

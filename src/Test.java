@@ -14,55 +14,21 @@ public class Test {
     }
 
     public static void main(String[] args){
-//        String key = "5a78b2b840811b4ab8d26309e2b68ee6"; //this is the key used in the Last.fm API examples
-//        Scanner s = new Scanner(System.in);
-//        String user = "Roy19110";
-//        String period = "";
-//
-//
-//        System.out.println("What is your Last FM Name?");
-//        user = s.nextLine();
-//        Chart<Artist> chart =  User.getWeeklyArtistChart(user, 5, key);;
-//        try {
-//            chart = User.getWeeklyArtistChart(user, 5, key);
-//        } catch(Exception e) {
-//            System.out.println("What is your Last FM Name?");
-//            user = s.nextLine();
-//            chart = User.getWeeklyArtistChart(user, 5, key);
-//            System.out.println(e);
-//        }
-//
-//        System.out.println("What period of time would you like to observe?");
-//        System.out.println("A: Last week  B: Last month  C: Last 3 months  D: Last 6 months  E: Last year  F: Overall");
-//        period = s.nextLine();
-//
-//
-//        while (!(period.equals("A")||period.equals("a")||period.equals("B")||period.equals("b")||period.equals("C")||
-//                period.equals("c")||period.equals("D")||period.equals("d")||period.equals("E")||period.equals("e")||period.equals("F")||period.equals("f"))){
-//            System.out.println("Try again with valid input!");
-//            System.out.println("What period of time would you like to observe?");
-//            System.out.println("A: Last week  B: Last month  C: Last 3 months  D: Last 6 months  E: Last year  F: Overall");
-//            period = s.nextLine();
-//        }
-//
-//
-//        Collection<Artist> Artists = User.getTopArtists(user, Period.OVERALL, key);
-//        Collection<Track> tracks = User.getTopTracks(user, Period.OVERALL, key);
-//        Collection<Album> albums = User.getTopAlbums(user, Period.OVERALL, key);
-//        Collection<Artist> CountryA = Geo.getTopArtists("United States", key);
-//        Collection<Track> CountryT = Geo.getTopTracks("United States", key);
         int valid = -1;
         while(valid == -1) {
+            //valid is an int for the while loop. The while loop makes sure the try catch continues running until it works. If try doesn't completely run,
+            //catch will make sure valid = -1 and while loop will keep running
+            //if try runs through completely, it will set valid = 1 and while loop will finish running.
+            //This while loop with int valid is to make sure program doesn't crash if we enter an invalid username
             try {
                 String key = "5a78b2b840811b4ab8d26309e2b68ee6"; //this is the key used in the Last.fm API examples
                 Scanner s = new Scanner(System.in);
-                String user = "Roy19110";
+                String user = "Roy19110"; //initializes user and period.
                 String period = "";
 
 
-                System.out.println("What is your Last FM Name?");
+                System.out.println("What is your Last FM Name?"); //EX USERNAMES: "Roy19110"   "fales_"   "usrname7"
                 user = s.nextLine();
-                Chart<Artist> chart = User.getWeeklyArtistChart(user, 5, key);
 
                 System.out.println("What period of time would you like to observe?");
                 System.out.println("A: Last week  B: Last month  C: Last 3 months  D: Last 6 months  E: Last year  F: Overall");
@@ -83,6 +49,14 @@ public class Test {
                 Collection<Artist> CountryA = Geo.getTopArtists("United States", key);
                 Collection<Track> CountryT = Geo.getTopTracks("United States", key);
 
+                System.out.println("Checking if username exists and period works...");
+
+                ArrayList<Artist> check = new ArrayList<>(Artists);
+                Artist checkCrash = check.get(0);
+                System.out.println("Username exists for period: " + user);
+
+                //program will set user's top artists, tracks, and albums based on the
+                //time frame of the period they chose.
                 if (period.equals("A") || period.equals("a")) {
                     Artists = User.getTopArtists(user, Period.WEEK, key);
                     tracks = User.getTopTracks(user, Period.WEEK, key);
@@ -128,6 +102,7 @@ public class Test {
                 s.nextLine();
 
 
+                //These for each loops take the collection datatypes and transfer them into String arrays for easy access when printing later on
                 String[] countryArtists = new String[50];
                 int z = 0;
                 for (Artist artist : CountryA) {
@@ -153,32 +128,10 @@ public class Test {
                 //string array converted from collection or arraylist of top Artist names
                 String[] topArtistNames = new String[50];
 
-                //string array that replaces each original artist in topArtistNames with the first recommended artist for each artist.
-                //String[] topRecArtists = new String[50];
-
-
-                //Here we are converting the top artists of the user from a collection into an Arraylist, so that we can iterate specific intervals of top artists
-                //We are doing the same for recommendedArtists, which is an arraylist of the similar artists to a specific artist in top artists arraylist
-//        ArrayList<Artist> userArtists = new ArrayList<>();
-//        ArrayList<Artist> recommendedArtists;
-//        for (Artist artist : Artists) {
-//            //System.out.println(track.getName());
-//            userArtists.add(artist);
-//        }
-
-                //getSimilar(String artist, String apiKey)
-
-//        Collection<Artist> recArtistCollection = new ArrayList<>();
-//        for (int i=0; i<5; i++){
-//            Artist tempArtist = userArtists.get(i);
-//            recArtistCollection = tempArtist.getSimilar(tempArtist.getName(), 2, key);
-//
-//            recommendedArtists = new ArrayList<>(recArtistCollection);
-//            topRecArtists[i] = recommendedArtists.get(0).getName();
-//
-//            recommendedArtists.clear();
-//        }
-
+                //Here we are converting the top artists of the user from a collection into an Arraylist,
+                //so that we can iterate specific intervals of top artists
+                //We are doing the same for recommendedArtists, which is an arraylist of the similar artists
+                //to a specific artist in top artists arraylist
                 ArrayList<Artist> userArtists = new ArrayList<>();
                 for (Artist artist : Artists) {
                     //System.out.println(track.getName());

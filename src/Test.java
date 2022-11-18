@@ -24,7 +24,7 @@ public class Test {
                 String key = "5a78b2b840811b4ab8d26309e2b68ee6"; //this is the key used in the Last.fm API examples
                 Scanner s = new Scanner(System.in);
                 String user = "Roy19110"; //initializes user and period.
-                String period = " ";
+                String period = "";
 
 
                 System.out.println("What is your Last FM Name?"); //EX USERNAMES: "Roy19110"   "fales_"   "usrname7"
